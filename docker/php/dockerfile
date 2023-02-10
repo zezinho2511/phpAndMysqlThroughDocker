@@ -1,0 +1,8 @@
+FROM php:8.1-apache
+WORKDIR /var/www
+COPY . .
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions .
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+RUN chmod +x ./install-php-extensions && install-php-extensions gd xdebug intl mbstring pdo pdo_mysql mysqli reflection openssl curl
+EXPOSE 80
+
